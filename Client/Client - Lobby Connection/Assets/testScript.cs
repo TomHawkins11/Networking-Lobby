@@ -7,6 +7,9 @@ public class testScript : MonoBehaviour
 {
     // Start is called before the first frame update
     NetworkDiscovery nd;
+    private string fromAddress;
+    private string data;
+
     void Start()
     {
         nd = gameObject.GetComponent<NetworkDiscovery>();
@@ -15,9 +18,7 @@ public class testScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(nd.broadcastData);
-        Debug.Log(nd.broadcastKey);
-        Debug.Log(nd.broadcastPort);
-        Debug.Log(nd.broadcastsReceived);
+        
+        Debug.Log(nd.broadcastsReceived.Values.ToString());
     }
 }
