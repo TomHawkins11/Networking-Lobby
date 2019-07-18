@@ -27,8 +27,7 @@ public class LanGamesPanel : MonoBehaviour
         newButton.transform.SetParent(gameObject.transform, false);
 
         newButton.GetComponent<GameButton>().gameIP = ipAddress;
-        newButton.GetComponent<GameButton>().gameInfo = gameName;
-            
+        newButton.GetComponent<GameButton>().gameInfo = gameName;       
             
         
         

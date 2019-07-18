@@ -11,56 +11,56 @@ public class CustomNetworkDiscovery : NetworkDiscovery
     public bool client;
     public GameObject fromText;
     public GameObject dataText;
-    public GameObject lanGamesPanel;
-    
+    public GameObject uiManager;
+
 
     public void Start()
     {
-        StartClient();
+
         fromText = GameObject.Find("GameName");
         dataText = GameObject.Find("GameIP");
-        lanGamesPanel = GameObject.Find("LanGamesPanel");
+        uiManager = GameObject.Find("UIManager");
     }
 
     public void StartHost()
     {
-        if (running)
-        {
-            StopBroadcast();
-            Initialize();
-        }
+        
+        StopBroadcast();
+        Initialize();
+        
         StartAsServer();
     }
 
     // Update is called once per frame
-    
+
 
     public void StartClient()
     {
-        if (running || !running)
-        {
-            StopBroadcast();
-            Initialize();
-        }
+
+        StopBroadcast();
+        Initialize();
+
         StartAsClient();
         RefreshAvailableGames();
     }
 
     public void RefreshAvailableGames()
     {
-        
+        uiManager.GetComponent<UIManager>().RemoveLanGames();
+
         foreach (var value in broadcastsReceived.Values)
         {
             string ip = value.serverAddress.Substring(7);
             string name = System.Text.Encoding.Unicode.GetString(value.broadcastData);
+            name = name.Substring(name.IndexOf(":") + 1, name.IndexOf(":7") - name.IndexOf(":") - 1);
 
             Debug.Log(value.serverAddress);
             Debug.Log(System.Text.Encoding.Unicode.GetString(value.broadcastData));
-            lanGamesPanel.GetComponent<LanGamesPanel>().AddButton(ip , name);
+            uiManager.GetComponent<UIManager>().AddLanGameButton(ip, name);
         }
 
-        
+
     }
 
-    
+
 }

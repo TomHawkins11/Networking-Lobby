@@ -11,6 +11,7 @@ public class GameButton: MonoBehaviour
 
     public GameObject textIP;
     public GameObject textInfo;
+    CustomNetworkManager cnm;
     
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,14 @@ public class GameButton: MonoBehaviour
 
         textInfo.GetComponent<Text>().text = gameInfo;
         textIP.GetComponent<Text>().text = gameIP;
+
+        cnm = GameObject.Find("Client").GetComponent<CustomNetworkManager>();
+
+    }
+
+    public void ConnectToGame()
+    {
+        cnm.JoinGame(gameIP);
     }
 
     // Update is called once per frame

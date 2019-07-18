@@ -12,14 +12,16 @@ public class CustomNetworkManager : NetworkManager
 
     public void HostGame()
     {
+        
         NetworkManager.singleton.StopAllCoroutines();
         SetPort();
         NetworkManager.singleton.StartHost();
+        NetworkManager.singleton.networkAddress = GameObject.Find("GameNameText").GetComponent<Text>().text.ToString();
     }
-    public void JoinGame()
+    public void JoinGame(string ip)
     {
         NetworkManager.singleton.StopAllCoroutines();
-        SetIPAddress();
+        SetIPAddress(ip);
         SetPort();
         NetworkManager.singleton.StartClient();
     }
@@ -29,9 +31,9 @@ public class CustomNetworkManager : NetworkManager
         NetworkManager.singleton.networkPort = 7777;
     }
 
-    public void SetIPAddress()
+    public void SetIPAddress(string ip)
     {
-        string ipAddress = GameObject.Find("InputField").transform.Find("Text").GetComponent<Text>().text;
+        string ipAddress = ip;
         NetworkManager.singleton.networkAddress = ipAddress;
     }
 }
