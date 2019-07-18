@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,7 +12,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
     public GameObject fromText;
     public GameObject dataText;
     public GameObject lanGamesPanel;
-    [SerializeField] public GameObject GameButton;
+    
 
     public void Start()
     {
@@ -50,17 +51,16 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         
         foreach (var value in broadcastsReceived.Values)
         {
-            GameObject newButton = Instantiate(GameButton);
-            newButton.transform.SetParent(lanGamesPanel.transform, false);
+            string ip = value.serverAddress.Substring(7);
+            string name = System.Text.Encoding.Unicode.GetString(value.broadcastData);
 
             Debug.Log(value.serverAddress);
             Debug.Log(System.Text.Encoding.Unicode.GetString(value.broadcastData));
+            lanGamesPanel.GetComponent<LanGamesPanel>().AddButton(ip , name);
         }
+
+        
     }
 
-    public override void OnReceivedBroadcast(string fromAddress, string data)
-    {
-        fromText.GetComponent<Text>().text = fromAddress;
-        dataText.GetComponent<Text>().text = data;
-    }
+    
 }
